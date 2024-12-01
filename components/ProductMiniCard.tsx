@@ -1,18 +1,19 @@
-"use client";
 import { Box, Button, Card, Flex, Link, Text } from "@radix-ui/themes";
 import ImageBox from "./ImageBox";
 
 interface ProductMiniCardProps {
-  focusable?: boolean;
+  id?: string;
+  title: string;
+  description: string;
+  image?: string;
 }
 
-export default function ProductMiniCard({ focusable = true }) {
-  const tabIndex = focusable ? undefined : -1;
+export default function ProductMiniCard({ title, description, image }: ProductMiniCardProps) {
 
   return (
     <Card size="1">
       <Flex mb="2">
-        <ImageBox />
+        <ImageBox image={image} />
       </Flex>
 
       <Flex align="center" justify="between" gap="3">
@@ -24,18 +25,15 @@ export default function ProductMiniCard({ focusable = true }) {
             size="2"
             weight="bold"
             highContrast
-            tabIndex={tabIndex}
-            onClick={(e) => e.preventDefault()}
           >
-            Back to basics
+            {title}
           </Link>
           <Text size="2" color="gray" as="p">
-            Simple and versatile
+            {description}
           </Text>
         </Flex>
         <Box flexShrink="0">
           <Button
-            tabIndex={tabIndex}
             size="2"
             variant="soft"
             color="gray"

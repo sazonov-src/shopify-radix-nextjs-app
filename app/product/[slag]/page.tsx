@@ -16,15 +16,15 @@ import { BookmarkIcon } from "@radix-ui/react-icons";
 import ImageBox from "@/components/ImageBox";
 
 
-export default function Product({
+export default async function Product({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
 
   return (
     <Card size="1">
-      <Grid gap="2" columns={{initial: "1", xs: "2" }}>
+      <Grid gap="2" columns={{ initial: "1", xs: "2" }}>
         <Flex mb="2" position="relative">
           <ImageBox />
           <Flex
@@ -38,11 +38,8 @@ export default function Product({
             style={{ borderRadius: "var(--radius-3)" }}
             m="2"
           >
-            <IconButton
-              size="2"
-              variant="surface"
-            >
-                <BookmarkIcon />
+            <IconButton size="2" variant="surface">
+              <BookmarkIcon />
             </IconButton>
           </Flex>
         </Flex>
@@ -51,12 +48,7 @@ export default function Product({
           <Flex align="end" justify="between" mb="2">
             <Box>
               <Flex mb="1">
-                <Link
-                  href="#"
-                  underline="hover"
-                  size="2"
-                  highContrast
-                >
+                <Link href="#" underline="hover" size="2" highContrast>
                   Footwear
                 </Link>
               </Flex>
@@ -72,8 +64,8 @@ export default function Product({
           </Flex>
 
           <Text as="p" size="2" color="gray" mb="4">
-            Love at the first sight for enthusiasts seeking a fresh and whimsical
-            style.
+            Love at the first sight for enthusiasts seeking a fresh and
+            whimsical style.
           </Text>
 
           <Box>
@@ -90,10 +82,7 @@ export default function Product({
 
               <Select.Root defaultValue="Pastel" size="2">
                 <Select.Trigger variant="soft" />
-                <Select.Content
-                  variant="soft"
-                  position="popper"
-                >
+                <Select.Content variant="soft" position="popper">
                   <Select.Item value="Pastel">Pastel</Select.Item>
                   <Select.Item value="Bright">Bright</Select.Item>
                 </Select.Content>
@@ -108,10 +97,7 @@ export default function Product({
               </Label>
               <Select.Root defaultValue="8" size="2">
                 <Select.Trigger variant="soft" />
-                <Select.Content
-                  variant="soft"
-                  position="popper"
-                >
+                <Select.Content variant="soft" position="popper">
                   {Array.from({ length: 5 }, (_, i) => (
                     <Select.Item key={i} value={String(i++)}>
                       {i++}
@@ -120,13 +106,9 @@ export default function Product({
                 </Select.Content>
               </Select.Root>
             </Flex>
-
           </Flex>
           <Flex direction="column" gap="2" mt="4">
-            <Button
-              size="3"
-              variant="solid"
-            >
+            <Button size="3" variant="solid">
               Buy
             </Button>
           </Flex>
