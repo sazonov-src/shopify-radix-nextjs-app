@@ -14,19 +14,52 @@ import {
 import { Label } from "@radix-ui/react-label";
 import { BookmarkIcon } from "@radix-ui/react-icons";
 import ImageBox from "@/components/ImageBox";
+import { client } from "@/shopify-client";
 
+const GRAPHQL_QUERY = `#graphql
+  query getProductById($handle: String!) {
+    product(handle: $handle) {
+      title
+      description
+      collections(first: 10) {
+        edges {
+          node {
+            title
+            handle
+          }
+        }
+      }
+      featuredImage {
+        altText
+        height
+        id
+        url(transform: { maxWidth: 800 }) # Example transform option
+      }
+    }
+  }
+`;
 
 export default async function Product({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  const response = await fetch(client.getStorefrontApiUrl(), {
+    body: JSON.stringify({
+      query: GRAPHQL_QUERY,
+      variables: { handle: (await params).slug },
+    }),
+    headers: client.getPublicTokenHeaders(),
+    method: "POST",
+  });
+
+  const product: any = (await response.json()).data.product;
 
   return (
-    <Card size="1">
+    <Card size="2">
       <Grid gap="2" columns={{ initial: "1", xs: "2" }}>
         <Flex mb="2" position="relative">
-          <ImageBox />
+          <ImageBox image={product.featuredImage?.url} />
           <Flex
             align="center"
             justify="center"
@@ -47,25 +80,32 @@ export default async function Product({
         <Box pl="4">
           <Flex align="end" justify="between" mb="2">
             <Box>
-              <Flex mb="1">
-                <Link href="#" underline="hover" size="2" highContrast>
-                  Footwear
-                </Link>
+              <Flex mb="1" gap="2">
+                {product.collections.edges.map((collection: any) => (
+                  <Link
+                    key={collection.node.handle}
+                    href="#"
+                    underline="hover"
+                    size="2"
+                    highContrast
+                  >
+                    {collection.node.title}
+                  </Link>
+                ))}
               </Flex>
 
               <Heading as="h3" size="3">
-                Sneakers #12
+                {product.title}
               </Heading>
             </Box>
 
             <Text size="6" weight="bold">
-              $149
+              $100
             </Text>
           </Flex>
 
           <Text as="p" size="2" color="gray" mb="4">
-            Love at the first sight for enthusiasts seeking a fresh and
-            whimsical style.
+            {product.description}
           </Text>
 
           <Box>

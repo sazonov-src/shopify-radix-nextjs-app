@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
-import { Theme, Container, ThemePanel } from "@radix-ui/themes";
+import { Theme, Container, Section, ThemePanel } from "@radix-ui/themes";
 
 
 export const metadata: Metadata = {
@@ -18,9 +18,11 @@ export default function RootLayout({
     		<html>
 			<body>
 				<Theme>
-          <Container>
-            { children }
-          </Container>
+          <Section>
+            <Container>
+              { children }
+            </Container>
+          </Section>
 				</Theme>
 			</body>
 		</html>

@@ -2,7 +2,8 @@ import ProductMiniCard from "@/components/ProductMiniCard";
 import { Box, Grid } from "@radix-ui/themes";
 import { client } from "@/shopify-client";
 
-const GRAPHQL_QUERY = `
+const GRAPHQL_QUERY = 
+`#graphql
 query getProducts($first: Int) {
   products(first: $first) {
     edges {
@@ -11,10 +12,12 @@ query getProducts($first: Int) {
         id
         title
         description
-        images(first: 1) {
-          nodes {
-            url
-          }
+        handle
+        featuredImage {
+          altText
+          height
+          id
+          url(transform: { maxWidth: 800 }) # Example transform option
         }
       }
     }
@@ -27,7 +30,6 @@ export default async function Home() {
       query: GRAPHQL_QUERY,
       variables: {first: 15},
     }),
-    // Generate the headers using the private token.
     headers: client.getPublicTokenHeaders(),
     method: "POST",
   });
@@ -43,11 +45,12 @@ export default async function Home() {
         {products.map((product) => (
           <ProductMiniCard 
             key={product.node.id}
-            image={product.node.images.nodes[0]?.url}
+            image={product.node.featuredImage?.url}
             title={product.node.title}
             description={product.node.description}
+            handle={product.node.handle}
           />
-          
+
         ))}
       </Grid>
     </Box>

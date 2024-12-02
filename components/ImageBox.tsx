@@ -2,7 +2,11 @@
 import { AspectRatio } from "@radix-ui/themes";
 import Image from "next/image";
 
-export default function ImageBox({image}: {image: string | undefined}) {
+interface ImageBoxProps {
+  image?: string;
+}
+
+export default function ImageBox({image}: ImageBoxProps) {
   const imageLoader = () => {
     return image ?? 'me.png';
   };
