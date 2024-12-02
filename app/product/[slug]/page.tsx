@@ -21,6 +21,16 @@ const GRAPHQL_QUERY = `#graphql
     product(handle: $handle) {
       title
       description
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
+      }
       collections(first: 10) {
         edges {
           node {
