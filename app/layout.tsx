@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import { Theme, Container, Section, ThemePanel } from "@radix-ui/themes";
-
+import CartProvider from "@/components/shopify/CartProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,16 +15,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    		<html>
-			<body>
-				<Theme>
-          <Section>
-            <Container>
-              { children }
-            </Container>
-          </Section>
-				</Theme>
-			</body>
-		</html>
+    <html>
+      <body>
+          <Theme>
+          
+        <CartProvider>
+            <Section>
+              <Container>{children}</Container>
+            </Section>
+        </CartProvider>
+          </Theme>
+      </body>
+    </html>
   );
 }

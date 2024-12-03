@@ -1,6 +1,7 @@
 import ProductMiniCard from "@/components/ProductMiniCard";
 import { Box, Grid } from "@radix-ui/themes";
 import { client } from "@/shopify-client";
+import Cart from "@/components/shopify/Cart";
 
 const GRAPHQL_QUERY = 
 `#graphql
@@ -38,6 +39,7 @@ export default async function Home() {
 
   return (
     <Box>
+      <Cart />
       <Grid 
         gap="4" 
         columns={{initial: "2", sm: "3"}}
