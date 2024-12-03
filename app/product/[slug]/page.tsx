@@ -2,7 +2,6 @@ import {
   Grid,
   Separator,
   Heading,
-  Select,
   Box,
   Button,
   Card,
@@ -11,12 +10,12 @@ import {
   Link,
   Text,
 } from "@radix-ui/themes";
-import { Label } from "@radix-ui/react-label";
 import { BookmarkIcon } from "@radix-ui/react-icons";
 import ImageBox from "@/components/ImageBox";
 import { client } from "@/shopify-client";
 import ProductPrice from "@/components/shopify/ProductPrice";
 import ProductProvider from "@/components/shopify/ProductProvider";
+import ProductVariants from "@/components/shopify/ProductVariants";
 
 const GRAPHQL_QUERY = `#graphql
   query getProductById($handle: String!) {
@@ -33,16 +32,37 @@ const GRAPHQL_QUERY = `#graphql
           currencyCode
         }
       }
-    compareAtPriceRange {
-        minVariantPrice {
-          amount
-          currencyCode
-        }
-        maxVariantPrice {
-          amount
-          currencyCode
+    variants(first: 10) {
+      edges {
+        node {
+          id
+          title
+          sku
+          price {
+            amount
+            currencyCode
+          }
+          compareAtPrice {
+            amount
+            currencyCode
+          }
+          selectedOptions {
+            name
+            value
+          }
         }
       }
+    }
+    compareAtPriceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+    }
       collections(first: 10) {
         edges {
           node {
@@ -135,41 +155,8 @@ export default async function Product({
               <Separator size="4" my="4" />
             </Box>
 
-            <Flex gap="2" align="end">
-              <Flex direction="column" flexGrow="1">
-                <Label asChild>
-                  <Text size="1" color="gray" mb="1">
-                    Color
-                  </Text>
-                </Label>
+            <ProductVariants />
 
-                <Select.Root defaultValue="Pastel" size="2">
-                  <Select.Trigger variant="soft" />
-                  <Select.Content variant="soft" position="popper">
-                    <Select.Item value="Pastel">Pastel</Select.Item>
-                    <Select.Item value="Bright">Bright</Select.Item>
-                  </Select.Content>
-                </Select.Root>
-              </Flex>
-
-              <Flex direction="column" minWidth="80px">
-                <Label asChild>
-                  <Text size="1" color="gray" mb="1">
-                    Size
-                  </Text>
-                </Label>
-                <Select.Root defaultValue="8" size="2">
-                  <Select.Trigger variant="soft" />
-                  <Select.Content variant="soft" position="popper">
-                    {Array.from({ length: 5 }, (_, i) => (
-                      <Select.Item key={i} value={String(i++)}>
-                        {i++}
-                      </Select.Item>
-                    ))}
-                  </Select.Content>
-                </Select.Root>
-              </Flex>
-            </Flex>
             <Flex direction="column" gap="2" mt="4">
               <Button size="3" variant="solid">
                 Buy

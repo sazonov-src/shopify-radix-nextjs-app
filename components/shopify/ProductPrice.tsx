@@ -1,8 +1,11 @@
 "use client";
 import { ProductPrice as Price, useProduct } from "@shopify/hydrogen-react";
+import { useEffect } from "react";
 
 export default function ProductPrice() {
-  const { product } = useProduct();
+  const { product, selectedVariant } = useProduct();
 
-  return product && <Price data={product} />;
+  useEffect(() => {}, [selectedVariant]);
+
+  return product && <Price data={product} variantId={selectedVariant?.id} />;
 }
