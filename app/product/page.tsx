@@ -39,7 +39,6 @@ export default async function Home() {
 
   return (
     <Box>
-      <Cart />
       <Grid 
         gap="4" 
         columns={{initial: "2", sm: "3"}}

@@ -3,6 +3,7 @@ import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import { Theme, Container, Section, ThemePanel } from "@radix-ui/themes";
 import CartProvider from "@/components/shopify/CartProvider";
+import MainNavbar from "@/components/MainNavbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,14 +18,14 @@ export default function RootLayout({
   return (
     <html>
       <body>
-          <Theme>
-          
-        <CartProvider>
+        <Theme>
+          <CartProvider>
+            <MainNavbar />
             <Section>
               <Container>{children}</Container>
             </Section>
-        </CartProvider>
-          </Theme>
+          </CartProvider>
+        </Theme>
       </body>
     </html>
   );
