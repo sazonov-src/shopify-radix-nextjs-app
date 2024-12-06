@@ -16,10 +16,12 @@ import { client } from "@/shopify-client";
 import ProductPrice from "@/components/shopify/ProductPrice";
 import ProductProvider from "@/components/shopify/ProductProvider";
 import ProductVariants from "@/components/shopify/ProductVariants";
+import AddToCartButton from "@/components/shopify/AddToCartButton";
 
 const GRAPHQL_QUERY = `#graphql
   query getProductById($handle: String!) {
     product(handle: $handle) {
+      id
       title
       description
       priceRange {
@@ -38,6 +40,7 @@ const GRAPHQL_QUERY = `#graphql
           id
           title
           sku
+          availableForSale
           price {
             amount
             currencyCode
@@ -158,9 +161,8 @@ export default async function Product({
             <ProductVariants />
 
             <Flex direction="column" gap="2" mt="4">
-              <Button size="3" variant="solid">
-                Buy
-              </Button>
+              <AddToCartButton>
+              </AddToCartButton>
             </Flex>
           </Box>
         </Grid>
