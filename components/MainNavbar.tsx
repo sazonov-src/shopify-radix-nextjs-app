@@ -3,6 +3,7 @@ import React from "react";
 import { Flex, Box, TextField } from "@radix-ui/themes";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import CartPictogram from "./shopify/CartPictogram";
+import Cart from "./shopify/Cart";
 
 export default function MainNavbar() {
   return (
@@ -11,7 +12,7 @@ export default function MainNavbar() {
       position="sticky" 
       top="0" 
       p="4" 
-      className="z-50 bg-white"
+      className="z-10 bg-white"
     >
       <Flex asChild align="center" justify="between">
         <header>
@@ -30,7 +31,7 @@ export default function MainNavbar() {
           </Flex>
 
           {/* Cart Button */}
-          <CartPictogram />
+          <Cart />
         </header>
       </Flex>
     </Box>
